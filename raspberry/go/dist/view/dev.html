@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/static/img/bf_logo.png"/>
+
+    <link href="/static/css/worksans.css" rel="stylesheet">
+    <script src="/static/js/jquery-3.2.1.min.js"></script>
+    <script src="/static/js/jquery-ui.min.js"></script>
+
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/bootstrap-theme.min.css">
+    <script src="/static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="/static/css/backend.css">
+    <script src="/static/js/global.js"></script>
+    <title>Blockfactory</title>
+</head>
+<body>
+<style>
+    .light {
+        padding: 10px;
+        width: 100%;
+    }
+
+    .light.true {
+        border: 10px solid green;
+    }
+
+    .light.false {
+        border: 10px solid #7d7d7d;
+    }
+
+    .light.false img {
+        opacity: 0.2;
+    }
+
+    .light.true img {
+        opacity: 1;
+    }
+
+    a.exlink {
+        margin-top: 15px;
+        display: block;
+        font-size: 16px;
+        border-bottom: 1px solid;
+        padding: 5px;
+    }
+
+    .step.disabled {
+        opacity: 0.3;
+    }
+
+    .step {
+        border: 1px solid gray;
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+    .site__bg {
+        height: 100vh;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .panel-group {
+        margin: 10px;
+    }
+
+    .panel-group .panel {
+        border-radius: 0px !important;
+    }
+
+    .panel-default > .panel-heading {
+        background-image: none !important;
+    }
+    #myIniForm span[name=terminal], #myIniForm span[name=addressindex] {
+        font-size: 18px;
+        margin-left: 10px;
+    }
+
+    #myIniForm span[name=owner] {
+        font-size: 22px;
+        font-weight: bold;
+    }
+    #fileName span {
+        white-space: nowrap;
+        overflow: hidden;
+        display:inline-block;
+    }
+    #fileName span:first-child {
+        width: 100px;
+        text-overflow: ellipsis;
+    }
+    #fileName span + span {
+        width: 94px;
+        direction: rtl;
+        text-align: right;
+        word-spacing: inherit;
+        text-overflow: ellipsis;
+        margin-left: -10px;
+    }
+    div#myIniForm2 {
+        padding: 10px;
+    }
+    .inputcontainer table {
+        width: 100%;
+    }
+
+    .inputcontainer table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .inputcontainer th, .inputcontainer td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    .inputcontainer tr:nth-child(even) {background-color: #f2f2f2;}
+</style>
+<div class="site__bg" style="background-image:url('/static/img/pattern.png');">
+
+</div>
+<div style="
+    position: fixed;
+    width: 100%;
+    background: #ffffffd9;
+    z-index: 1000;
+">
+    <img src="/static/img/bf_logo.svg" alt="logo" style="
+    padding: 10px;
+">
+    <p style="
+    padding: 10px;
+">Welcome to the Blockfactory Tracking System</p>
+    <div style="position: absolute;padding: 3px;top: 0;right: 9px;">
+        <div id="myIniForm" style="
+    display: inline-block;
+">
+            <span name="owner" placeholder="Owner" data-status="success"></span> <span name="terminal" placeholder="Terminal" data-status="success" style="
+    color: blue;
+"></span> <span name="addressindex" placeholder="Address Index" data-status="success" style="
+    color: #c74211;
+"></span>
+            <table style="
+    width: 100%;
+">
+                <tbody><tr>
+                    <td>
+                        <label style="
+    margin-right: 10px;
+">Seed</label>
+
+                    </td>
+                    <td>
+                        <div id="fileName" style="
+    float: right;
+"><span name="seed" data-status="success"></span><span name="seed" data-status="success"></span></div>
+                    </td>
+                </tr>
+                </tbody></table>
+
+        </div>
+
+    </div>
+</div>
+
+<div style="
+    top: 105px;
+    position: relative;
+" class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false"
+                   aria-controls="collapseOne">
+                    Track consignment
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" data-id="1">
+            <div class="panel-body">
+                <div class="light false">
+                    <img style="width: 19%;margin-left: 44%;" src="/static/img/monitor.gif">
+                </div>
+                <h3>List</h3>
+                <div class="inputcontainer"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
+                   aria-controls="collapseTwo">
+                    Sign receipt for a consignment
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" data-id="2">
+            <div class="panel-body">
+                <div class="step" data-id="1">
+                    <div class="form-group">
+                        <label for="signOffName">Name for sign-off</label>
+                        <input class="form-control" id="signOffName" placeholder="Name for sign-off">
+                    </div>
+                    <button id="twoSubmit" class="btn btn-default">Submit</button>
+                </div>
+                <div class="light false disabled step" data-id="3">
+                    <img style="width: 19%;margin-left: 44%;" src="/static/img/monitor.gif">
+                </div>
+                <h3>List</h3>
+                <div class="inputcontainer"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                   aria-expanded="false" aria-controls="collapseThree">
+                    Open up a new tracking
+                </a>
+            </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" data-id="3">
+            <div class="panel-body">
+                <div class="step" data-id="1">
+                    <div class="form-group">
+                        <label for="ConsignmentID">Consignment ID</label>
+                        <input class="form-control" id="ConsignmentID" placeholder="Consignment ID">
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input id="threeCheck" type="checkbox"> Keep in mind that the existing data on the RFID will be deleted
+                        </label>
+                    </div>
+                    <button id="threeSubmit" class="btn btn-default">Submit</button>
+                </div>
+                <div class="light false disabled step" data-id="2">
+                    <img style="width: 19%;margin-left: 44%;" src="/static/img/rfid-tag.png">
+                </div>
+                <div class="light false disabled step" data-id="3">
+                    <img style="width: 19%;margin-left: 44%;" src="/static/img/monitor.gif">
+                </div>
+                <h3>List</h3>
+                <div class="inputcontainer"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading4">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false"
+                   aria-controls="collapse4">
+                    Monitor
+                </a>
+            </h4>
+        </div>
+        <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4" data-id="4">
+            <div class="panel-body">
+                <div class="light false">
+                    <img style="width: 19%;margin-left: 44%;" src="/static/img/monitor.gif">
+                </div>
+                <h3>List</h3>
+                <div class="inputcontainer"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading5">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false"
+                   aria-controls="collapse5">
+                    Display tracking details
+                </a>
+            </h4>
+        </div>
+        <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5" data-id="5">
+            <div class="panel-body">
+                <div class="light false">
+                    <img style="width: 19%;margin-left: 44%;" src="/static/img/monitor.gif">
+                </div>
+                <h3>List</h3>
+                <div class="inputcontainer"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading6">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="false"
+                   aria-controls="collapse6">
+                    Configuration
+                </a>
+            </h4>
+        </div>
+        <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6" data-id="-1">
+            <div id="myIniForm2" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Terminal</label>
+                    <div class="col-sm-10">
+                        <input name="terminal" class="form-control" placeholder="Terminal">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Owner</label>
+                    <div class="col-sm-10">
+                        <input name="owner" class="form-control" placeholder="Owner">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Address Index</label>
+                    <div class="col-sm-10">
+                        <input name="addressindex" class="form-control" placeholder="Address Index">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Seed</label>
+                    <div class="col-sm-10">
+                        <input name="seed" class="form-control" placeholder="Seed">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Interface</label>
+                    <div class="col-sm-10">
+                        <input name="interface" class="form-control" placeholder="Interface">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">iotaAPI</label>
+                    <div class="col-sm-10">
+                        <input name="iotaAPI" class="form-control" placeholder="iotaAPI">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">callHookTrack</label>
+                    <div class="col-sm-10">
+                        <input name="callHookTrack" class="form-control" placeholder="callHookTrack">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">callHookNew</label>
+                    <div class="col-sm-10">
+                        <input name="callHookNew" class="form-control" placeholder="callHookNew">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">baseHookProtocol</label>
+                    <div class="col-sm-10">
+                        <input name="baseHookProtocol" class="form-control" placeholder="baseHookProtocol">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">baseHookHost</label>
+                    <div class="col-sm-10">
+                        <input name="baseHookHost" class="form-control" placeholder="baseHookHost">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">baseHookURL</label>
+                    <div class="col-sm-10">
+                        <input name="baseHookURL" class="form-control" placeholder="baseHookURL">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">baseHookCommand</label>
+                    <div class="col-sm-10">
+                        <input name="baseHookCommand" class="form-control" placeholder="baseHookCommand">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">documentIDtrack</label>
+                    <div class="col-sm-10">
+                        <input name="documentIDtrack" class="form-control" placeholder="documentIDtrack">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">documentIDnew</label>
+                    <div class="col-sm-10">
+                        <input name="documentIDnew" class="form-control" placeholder="documentIDnew">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button id="btnConfigSave" class="btn btn-default">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type=text/javascript>
+    var currentTarget = -1;
+    var currentSteps = 0;
+    var lastConfigIni;
+
+    var updateIni = function (data) {
+        $("#myIniForm").fillForm(data);
+        $("#myIniForm2").fillForm(data);
+        lastConfigIni = JSON.stringify($("#myIniForm2").serializeFormToObject());
+    };
+
+    $.ajax({
+        type: "GET",
+        url: "/ini",
+        success: function (data) {
+            updateIni(data);
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+    $("#twoSubmit").attr("disabled", "disabled");
+    $("#signOffName").on("change input", function(){
+        if($(this).val()){
+            $("#twoSubmit").removeAttr("disabled");
+        }else{
+            $("#twoSubmit").attr("disabled", "disabled");
+        }
+    });
+    $("#twoSubmit").click(function () {
+        var t = $(this);
+        if (t.attr("disabled") === undefined) {
+            var val = $("#signOffName").val();
+            $("#signOffName").val("");
+            $.ajax({
+                type: "GET",
+                url: "/cmd/" + currentTarget + "?cid=" + val,
+                success: function (data) {
+                    console.log(data);
+                    currentSteps = 2;
+                    var m = $("#collapseTwo").find(".step").first();
+                    m.hide();
+                    m = m.next();
+                    m.removeClass("disabled");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+    });
+
+
+
+    $("#threeCheck").change(function () {
+        var t = $(this);
+        if ($("#ConsignmentID").val() && t.is(':checked')) {
+            $("#threeSubmit").removeAttr("disabled");
+        } else {
+            $("#threeSubmit").attr("disabled", "disabled");
+        }
+    });
+    $("#ConsignmentID").change(function () {
+        var t = $(this);
+        if (t.val() && $("#threeCheck").is(':checked')) {
+            $("#threeSubmit").removeAttr("disabled");
+        } else {
+            $("#threeSubmit").attr("disabled", "disabled");
+        }
+    });
+    $("#threeSubmit").click(function () {
+        var t = $(this);
+        if (t.attr("disabled") === undefined) {
+            var val = $("#ConsignmentID").val();
+            $("#ConsignmentID").val("");
+            $.ajax({
+                type: "GET",
+                url: "/cmd/" + currentTarget + "?cid=" + val,
+                success: function (data) {
+                    console.log(data);
+                    currentSteps = 2;
+                    var m = $("#collapseThree").find(".step").first();
+                    m.hide();
+                    m = m.next();
+                    m.removeClass("disabled");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+    });
+    var doUpdate = function (t, data) {
+        var $container = $("div[data-id='" + t + "'] .inputcontainer");
+        var s = ""
+        if (t == 5) {
+            //TODO
+        } else {
+            if ($container.children().length != data.length) {
+                for (var i = 0; i < data.length; ++i) {
+                    var url = 'https://thetangle.org/address/' + data[i];
+                    s += '<p><a target="_blank" class="exlink" href="' + url + '">' + url + '</a></p>';
+                }
+                $container.html(s);
+            }
+        }
+
+    };
+    var lastTable5;
+    var doStatusUpdate = function (t, data) {
+        if (t == 3) {
+            var el = $("#collapseThree");
+            if (data.Status == 2) {
+                el.find(".step").first().addClass("disabled").addClass("false");
+                el.find(".step").last().addClass("disabled").addClass("false");
+                el.find(".step").first().next().removeClass("disabled").removeClass("false");
+            } else if (data.Status == 3) {
+                el.find(".step").first().addClass("disabled").addClass("false");
+                el.find(".step").first().next().addClass("disabled").addClass("false");
+                el.find(".step").last().removeClass("disabled").removeClass("false");
+            }
+        }else if(t == 2){
+            var el = $("#collapseTwo");
+            if (data.Status == 2) {
+                el.find(".step").first().addClass("disabled").addClass("false");
+                el.find(".step").first().removeClass("disabled").removeClass("false");
+            }
+        }else if(t == 5){
+            if(data && data.Table && lastTable5 != JSON.stringify(data.Table)){
+                lastTable5 = JSON.stringify(data.Table);
+                console.log(data.Table);
+                var cont = $("div[data-id='" + t + "'] .inputcontainer");
+                var tbl = "<table>";
+                for(var i = 0; i < data.Table.length; i++){
+                    if(data.Table[i]){
+                        tbl += "<tr>"
+                        for(var c = 0; c < data.Table[i].length; c++){
+                            if(i==0){
+                                tbl += "<th>"+data.Table[i][c]+"</th>";
+                            }else{
+                                tbl += "<td>"+data.Table[i][c]+"</td>";
+                            }
+                        }
+                        tbl += "</tr>"
+                    }
+                }
+                tbl += "</table>";
+                cont.html(tbl);
+            }
+        }
+        if(!data){
+            data = {ScanActive:false};
+        }
+        $("div[data-id='" + t + "'] .light:not(.disabled)").removeClass((!!!data.ScanActive) + "").addClass(data.ScanActive + "");
+    };
+    var updateServer = function () {
+        $.ajax({
+            type: "GET",
+            url: "/cmd/" + currentTarget,
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+    setInterval(function () {
+        var t = currentTarget;
+        if (t == -1) {
+            return;
+        }
+        $.ajax({
+            type: "GET",
+            url: "/cmd/pull/" + t,
+            success: function (data) {
+                if (data && t == currentTarget) {
+                    doUpdate(t, data);
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: "/cmd/status/" + t,
+            success: function (data) {
+                if (t == currentTarget) {
+                    doStatusUpdate(t, data);
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }, 300);
+    $("#myButton").click(function () {
+        $.ajax({
+            type: "GET",
+            url: "/btn",
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    });
+    $('#accordion').on('hidden.bs.collapse', function (a, b, c, d) {
+        console.log("hidden.bs.collapse");
+        var collapsed = parseInt($(a.target).attr("data-id"));
+        console.log("collapsed " + collapsed);
+        if(collapsed==2){
+            $("#collapseTwo").find(".step").first().show();
+        }
+        if(collapsed==3){
+            $("#threeCheck").prop( "checked", false );
+        }
+        doStatusUpdate(collapsed, {Status: 1, ScanActive: false});
+        if (collapsed == currentTarget) {
+            currentTarget = -1;
+            updateServer();
+        }
+        console.log(currentTarget);
+        console.log(b);
+        console.log(c);
+        console.log(d);
+
+    });
+    var checkConfigSaveBtn = function(){
+        var j = $("#myIniForm2").serializeFormToObject();
+        if(JSON.stringify(j) == lastConfigIni){
+            console.log("same");
+            $("#btnConfigSave").attr("disabled", "disabled");
+        }else{
+            $("#btnConfigSave").removeAttr("disabled");
+        }
+    };
+    $("#btnConfigSave").click(function(){
+        var a = $("#myIniForm2").serializeFormToObject();
+        lastConfigIni = JSON.stringify(a);
+        $("#myIniForm").fillForm(a);
+        $.ajax({
+            type: "POST",
+            url: "/ini",
+            data: lastConfigIni,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                $("#btnConfigSave").attr("disabled", "disabled");
+            },
+            error: function (data) {
+                $("#btnConfigSave").attr("disabled", "disabled");
+                console.log(data);
+            }
+        });
+    });
+    $("#myIniForm2 input").on("change input",function(){
+        checkConfigSaveBtn();
+    });
+    $('#accordion').on('shown.bs.collapse', function (a, b, c, d) {
+        // do something…
+        console.log("shown.bs.collapse");
+        currentTarget = parseInt($(a.target).attr("data-id"));
+        if (currentTarget == 3) {
+            $("#threeSubmit").attr("disabled", "disabled");
+            $("#collapseThree").find(".step").addClass("disabled").addClass("false").first().removeClass("disabled").show();
+        }
+
+        if(currentTarget==-1){
+            checkConfigSaveBtn();
+        }
+        updateServer();
+        console.log($(a.target).attr("data-id"));
+        console.log(b);
+        console.log(c);
+        console.log(d);
+    });
+</script>
+</body>
+</html>
+
