@@ -1,15 +1,16 @@
 package embed
 
 import (
-	"net/http"
-	"strings"
-	"gitlab.blockfactory.com/sytrax/rfid_ui"
-	"github.com/labstack/echo"
-	"path/filepath"
-	"sync"
-	"os"
-	"io"
 	"bytes"
+	"io"
+	"net/http"
+	"os"
+	"path/filepath"
+	"strings"
+	"sync"
+
+	doctmpl "github.com/ProxeusApp/usecase-shipment-tracking/raspberry/rfid-ui"
+	"github.com/labstack/echo"
 )
 
 func SetupServer() (*doctmpl.MyServer, error) {

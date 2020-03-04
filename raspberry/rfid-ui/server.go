@@ -1,22 +1,23 @@
 package doctmpl
 
 import (
-	"github.com/labstack/echo"
-	"fmt"
-	"net/http"
-	"github.com/labstack/echo/middleware"
+	"context"
+	"encoding/gob"
+	"encoding/json"
 	"errors"
 	"flag"
-	"github.com/labstack/echo-contrib/session"
-	"github.com/gorilla/sessions"
+	"fmt"
+	"io/ioutil"
+	"net/http"
 	"os"
 	"os/signal"
-	"io/ioutil"
-	"context"
 	"time"
-	"encoding/gob"
-	"gitlab.blockfactory.com/sytrax/rfid_ui/helper"
-	"encoding/json"
+
+	"github.com/ProxeusApp/usecase-shipment-tracking/raspberry/rfid-ui/helper"
+	"github.com/gorilla/sessions"
+	"github.com/labstack/echo-contrib/session"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 var (
@@ -47,7 +48,7 @@ func StartServer(e *echo.Echo, addr string, afterStart func(), onShutdown func()
 	// Start server
 	go func() {
 		fmt.Println("starting at", addr)
-		if err = e.Start(addr) /*e.StartAutoTLS(":443")*/ ; err != nil {
+		if err = e.Start(addr); /*e.StartAutoTLS(":443")*/ err != nil {
 			fmt.Println("shutting down the server cause of: ", err)
 			ms.quit <- os.Interrupt
 		}
@@ -76,6 +77,7 @@ func shutdownWebListener(e *echo.Echo, ctx *context.Context) {
 }
 
 var mySytraxPythonHelper *helper.SytraxPhytonHandler
+
 func SetupServer(beforeStart func(ec *echo.Echo)) (*MyServer, error) {
 	port := flag.String("p", "58082", "Port")
 	host := flag.String("h", "127.0.0.1", "Host")
@@ -108,10 +110,10 @@ func SetupServer(beforeStart func(ec *echo.Echo)) (*MyServer, error) {
 			return c.NoContent(http.StatusOK)
 		}
 		consingmentID := c.QueryParam("cid")
-		if (nr == "3" || nr == "2") && len(consingmentID)==0 {
+		if (nr == "3" || nr == "2") && len(consingmentID) == 0 {
 			return c.NoContent(http.StatusBadRequest)
 		}
-		go func(){
+		go func() {
 			mySytraxPythonHelper.Run(nr, consingmentID)
 		}()
 		return c.NoContent(http.StatusOK)
