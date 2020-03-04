@@ -1,0 +1,25 @@
+---
+- - :approve
+  - github.com/gorilla/sessions
+  - :who: 
+    :why: BSD-3-Clause
+    :versions: []
+    :when: 2020-03-04 12:14:40.819432000 Z
+- - :approve
+  - github.com/labstack/echo
+  - :who: 
+    :why: MIT
+    :versions: []
+    :when: 2020-03-04 12:15:13.006528000 Z
+- - :approve
+  - github.com/labstack/echo/v4
+  - :who: 
+    :why: MIT
+    :versions: []
+    :when: 2020-03-04 12:15:20.413582000 Z
+- - :approve
+  - github.com/labstack/echo-contrib
+  - :who: 
+    :why: MIT
+    :versions: []
+    :when: 2020-03-04 12:15:39.733764000 Z

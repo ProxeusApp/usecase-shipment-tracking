@@ -1,0 +1,37 @@
+---
+- - :approve
+  - github.com/pallets/flask
+  - :who: 
+    :why: BSD-3-Clause
+    :versions: []
+    :when: 2020-03-04 12:17:29.187812000 Z
+- - :approve
+  - github.com/skozlovf/flask-json
+  - :who: 
+    :why: Permissive license
+    :versions: []
+    :when: 2020-03-04 12:19:02.942556000 Z
+- - :approve
+  - https://pypi.org/project/RPi.GPIO/
+  - :who: 
+    :why: MIT
+    :versions: []
+    :when: 2020-03-04 12:21:22.662383000 Z
+- - :approve
+  - https://pypi.org/project/mfrc522/
+  - :who: 
+    :why: GPL-3.0
+    :versions: []
+    :when: 2020-03-04 12:22:00.008016000 Z
+- - :approve
+  - https://github.com/iotaledger/iota.py
+  - :who: 
+    :why: MIT
+    :versions: []
+    :when: 2020-03-04 12:24:06.413603000 Z
+- - :approve
+  - https://github.com/zopefoundation/DateTime
+  - :who: 
+    :why: ZPL-2.1
+    :versions: []
+    :when: 2020-03-04 12:26:13.809929000 Z
